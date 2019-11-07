@@ -7,8 +7,6 @@ public class ObjectCreation : MonoBehaviour {
 	//Designated the number of objects to create
 	public int num_objects;
 
-	public GameObject this_object;
-
 	//Designates room minimums and maximums
 	public int room_x_size;
 	public int room_y_size;
@@ -20,7 +18,7 @@ public class ObjectCreation : MonoBehaviour {
 		//Should create objects upon start
 		if (num_created < num_objects) {
 			Vector2 position = get_random_2D_point();
-			Instantiate(this_object, position, transform.rotation);
+			Instantiate(this.gameObject, position, transform.rotation);
 			num_created++;
 		}
 	}
@@ -38,7 +36,7 @@ public class ObjectCreation : MonoBehaviour {
 
 		for (int i = 0; i < num_objects; i++) {
 			Vector2 position = get_random_2D_point();
-			Instantiate(this_object, position, transform.rotation);
+			Instantiate(this.gameObject, position, transform.rotation);
 /* 			success = false;
 
 			while(!success) {
