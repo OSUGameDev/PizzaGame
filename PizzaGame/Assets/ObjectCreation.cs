@@ -7,16 +7,22 @@ public class ObjectCreation : MonoBehaviour {
 	//Designated the number of objects to create
 	public int num_objects;
 
+	public GameObject this_object;
+
 	//Designates room minimums and maximums
-	public int room_x_min;
-	public int room_x_max;
-	public int room_y_min;
-	public int room_y_max;
+	public int room_x_size;
+	public int room_y_size;
+
+	static int num_created = 1;
 
 	// Use this for initialization
 	void Start () {
 		//Should create objects upon start
-		Debug.Log("something");
+		if (num_created < num_objects) {
+			Vector2 position = get_random_2D_point();
+			Instantiate(this_object, position, transform.rotation);
+			num_created++;
+		}
 	}
 	
 	// Update is called once per frame
@@ -24,31 +30,31 @@ public class ObjectCreation : MonoBehaviour {
 		//Does nothing unless needs to
 	}
 
-	public int get_num_objects() {
-		return num_objects;
-	}
-
-	public void set_num_objects(int new_num_objects) {
-		num_objects = new_num_objects;
-	}
-
 	/* Should go through all of the functions to create a new object, as
 	well as ensures that an object isn't created in another object or in an
 	inconvient spot. */
 	public void create_objects() {
-		bool success;
+		//bool success, collision;
 
 		for (int i = 0; i < num_objects; i++) {
-			success = false;
+			Vector2 position = get_random_2D_point();
+			Instantiate(this_object, position, transform.rotation);
+/* 			success = false;
 
 			while(!success) {
 				Vector2 position = get_random_2D_point();
 				//Check collison
+				//collision = check_collision_with_other_objects();
+				collision = false;
 				//if so, create and set success to true
+				if (!collision) {
+					Instantiate(this_object, position, transform.rotation);
+					success = true;
+
+				}
 				//Otherwise repeat
-				success = true;
 			}
-		}
+*/		}
 	}
 
 	/* This function should be able to randomly generate an x component and a y component
@@ -58,10 +64,10 @@ public class ObjectCreation : MonoBehaviour {
 	 * COULD EDIT MAX/MIN SO ONLY ONE VARIABLE, SIZE, TO BE DIVIDED BY 2*/
 	public Vector2 get_random_2D_point() {
 		//Randomly generate x position in room, must be within room
-		int x_component = Random.Range(room_x_min, room_x_max);
+		int x_component = Random.Range(- room_x_size / 2, room_x_size / 2);
 
 		//Randomly generate y position in room, must be within room
-		int y_component = Random.Range(room_y_min, room_y_max);
+		int y_component = Random.Range(- room_y_size / 2, room_y_size / 2);
 
 		//Create position based on this
 		Vector2 position = new Vector2(x_component, y_component);
@@ -83,11 +89,5 @@ public class ObjectCreation : MonoBehaviour {
 	public bool check_close_to_floor() {
 		//Check - must get info from unity
 		return true;
-	}
-
-	/* Should go through the creation of the object itself. */
-	public void create_instances() {
-		//Use functions to create instance of object
-
 	}
 }
