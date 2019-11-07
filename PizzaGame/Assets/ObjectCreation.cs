@@ -20,15 +20,18 @@ public class ObjectCreation : MonoBehaviour {
 
 	//Static variable to ensure that no more than the specified objects
 	//are created - prevents recursion. 
+	//Starts at one because the attached object is included. 
 	static int num_created = 1;
 
 	// Use this for initialization
 	void Start () {
+		// Moves the current object to a random point in the room.
+		Vector2 position = get_random_2D_point();
+		transform.position = position;
+
 		//If objects need to be created
 		if (num_created < num_objects) {
-			//Gets a random position,  creates an object at that position,
-			//and increates num_created by one. 
-			Vector2 position = get_random_2D_point();
+			//Creates another object if not enough objects were created.
 			Instantiate(this.gameObject, position, transform.rotation);
 			num_created++;
 		}
