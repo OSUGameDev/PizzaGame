@@ -1,6 +1,6 @@
 ﻿/* 
  * Name: Jordyn Marshall
- * Date: 11/6/19
+ * Date: 11/13/19
  * Attaching this script to a Game Object should be able to create the same game object
  * in random positions in the specified room.  
  */
@@ -18,7 +18,7 @@ public class ObjectCreation : MonoBehaviour {
 	public int room_x_size;
 	public int room_y_size;
 	
-	public int object_radius;
+	public float object_radius;
 
 	//Static variable to ensure that no more than the specified objects
 	//are created - prevents recursion. 
@@ -38,9 +38,6 @@ public class ObjectCreation : MonoBehaviour {
 				transform.position = position;
 			}
 		}
-
-		//Vector2 position = get_random_2D_point();
-		//transform.position = position;
 
 		//If objects need to be created
 		if (num_created < num_objects) {
@@ -73,11 +70,5 @@ public class ObjectCreation : MonoBehaviour {
 		return position;
 
 	}
-
-	/*void OnCollisionEnter2D(Collision2D col) {
-		//Generates a new position if there is a collision
-		Vector2 position = get_random_2D_point();
-		transform.position = position;
-	}*/
 
 }
