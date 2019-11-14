@@ -17,6 +17,8 @@ public class ObjectCreation : MonoBehaviour {
 	//Designates room minimums and maximums
 	public int room_x_size;
 	public int room_y_size;
+	
+	public int object_radius;
 
 	//Static variable to ensure that no more than the specified objects
 	//are created - prevents recursion. 
@@ -25,14 +27,25 @@ public class ObjectCreation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// Moves the current object to a random point in the room.
-		Vector2 position = get_random_2D_point();
-		transform.position = position;
+		bool found_collision = true;
+
+		// Moves the current object to a random point in the room. Ensures
+		// That the object would not spawn in another object. 
+		while (found_collision) {
+			Vector2 position = get_random_2D_point();
+			found_collision = Physics.CheckSphere(position, object_radius);
+			if (!found_collision) {
+				transform.position = position;
+			}
+		}
+
+		//Vector2 position = get_random_2D_point();
+		//transform.position = position;
 
 		//If objects need to be created
 		if (num_created < num_objects) {
 			//Creates another object if not enough objects were created.
-			Instantiate(this.gameObject, position, transform.rotation);
+			Instantiate(this.gameObject, transform.position, transform.rotation);
 			num_created++;
 		}
 	}
@@ -60,5 +73,11 @@ public class ObjectCreation : MonoBehaviour {
 		return position;
 
 	}
+
+	/*void OnCollisionEnter2D(Collision2D col) {
+		//Generates a new position if there is a collision
+		Vector2 position = get_random_2D_point();
+		transform.position = position;
+	}*/
 
 }
