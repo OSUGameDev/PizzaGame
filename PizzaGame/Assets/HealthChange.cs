@@ -17,10 +17,10 @@ public class HealthChange : MonoBehaviour {
         if (Input.GetKeyDown("space"))
         {
             health = health - 20;
-          //  if (health < 0)
-            //{
-             //   health = 0;
-           // }
+            if (health < 0)
+            {
+                health = 0; //Makes it so health can't appear below 0
+            }
             GameObject.Find("HealthNum").GetComponent<UnityEngine.UI.Text>().text = health.ToString();
             //Change the text component on screen to the health number
         }
